@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+{{render "comm/header.html"}}
+<body>
+
+	{{render "comm/top.html"}}
+
+	<!-- 音创资讯 -->
+	{{if .firmList}}
+	<div class="container-fluid index-content-1">
+		<div class="container">
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<div class="col-xs-12 col-md-12 col-lg-12 index-content-1-header">
+					<header>音创资讯</header>
+					<span class="col-xs-12 col-md-12 col-lg-12">
+						快速更迭，随时代前行，音创不断努力做好自身，带给大家最好更有趣的娱乐体验！
+					</span>
+					<div class="more">
+						<a href="/firm" ><span>更多>></span></a>
+					</div>
+				</div>
+				<ul class="col-xs-12 col-md-12 col-lg-12 index-content-1-txt">
+					<li class="col-xs-12 col-md-12 col-lg-12">
+					</li>
+					<li class="col-xs-12 col-md-12 col-lg-12">
+						{{range $name, $data := .firmList }}
+						<a  href="javascript:if(confirm('{{$data.WxLink}} \n\n是否要从服务器打开它?'))window.location='{{$data.WxLink}}'" target="view_window">
+								<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 img">
+									<img src="{{$data.Img}}" >
+									<div>
+										<header>{{$data.Title}}</header>
+										<span></span>
+										<span>{{TimeFormat $data.CreateTime}}</span>
+									</div>
+								</div>
+							</a>
+						{{end}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	{{end}}
+	<!-- 播放视频 -->
+	<!-- 按钮触发模态框 -->
+	<!-- 模态框（Modal）
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<video controls="controls" autoplay="autoplay"></video>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+
+	<!-- 企业资质 -->
+
+	<!-- 合作案例 -->
+	<div class="container-fluid index-content-3">
+		<div class="container">
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 index-content-3-header">
+				<header>合作案例</header>
+				<span class="col-xs-12 col-md-12 col-lg-12">
+					目前音创的主营业务为单机、网络、酒店、minik，经过这么多年的打磨锻炼，我们得到众多客户的认可和积极地合作，希望今后我们能为更多的人提供更完善的娱乐体验。
+				</span>
+			</div>
+			<div id="mar-1" class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 marqueeleft">
+				<div style="width:8000px;">
+					<ul id="mar-1_1">
+						{{range $index, $data := .cases}}
+						<li>
+							<img src="{{$data.Logo}}" >
+							<div class="pic">{{$data.Title}}</div>
+						</li>
+						{{end}}
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<p>几千家客户选择了音创，超过千万受益大众。</p>
+			</div>
+		</div>
+	</div>
+	<!-- 大图 -->
+	<div class="container-fluid index-content-4">
+		<div class="swiper-slide"><img src="/static/own-picture/5a9e589ee9a9a.png" ></div>	</div>
+
+	{{render "comm/bottom.html"}}
+    <script type="text/javascript" src="https://www.zhangxinxu.com/study/js/mini/jquery.scrollLoading-min.js" ></script>
+	<script type="text/javascript">
+
+
+		// 初始化轮播
+		var mySwiper = new Swiper('.swiper-container', {
+			// speed: 500,
+		 	direction: 'horizontal', // 方向
+		    // // 如果需要分页器
+	    	pagination: '.swiper-pagination',
+	        paginationClickable:true,
+	        loop:true,
+	        centeredSlides:true,
+	        autoplayDisableOnInteraction:false, // 使用分页器后是否取消自动播放
+	        autoplay: 3000 // 自动切换的时间
+		})
+
+		$(function(){
+			// 图片滚动
+		// 　　marqueeStart("mar-0","marquee('mar-0')",50);
+			if ($("#mar-1").length >1){
+				marqueeStart("mar-1","marquee('mar-1')",50);
+			}
+
+			// 选中导航
+			$(".navbar-nav > .dropdown").eq(0).attr("class","dropdown active");
+		});
+/*
+		// 播放视频
+		$(".video-img > button").click(function(){
+			// 获取当前点击视频地址
+			var video_src = ""+$(this).attr("data-src");
+			$("#myModal video").attr("src",video_src);
+
+		})*/
+
+	</script>
+    <script type="text/javascript">
+        $(".scrollLoading").scrollLoading();
+    </script>
+</body>
+</html>

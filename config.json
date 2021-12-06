@@ -1,0 +1,10 @@
+{
+  "port":":8090",
+  "pre_domain":"http://cdn.XXXX.net",//cdn 地址
+  "my_sql_source": "root:XXXX@tcp(XXXX:3306)/XXXX",
+  "redis_source": "127.0.0.1:6379",
+  "redis_db": 4,
+  "qiniu_access_key":"",
+  "qiniu_secret_key":"",
+  "qiniu_name":""
+}

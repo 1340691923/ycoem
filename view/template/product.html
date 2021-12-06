@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    {{render "comm/header.html"}}
+    <body>
+
+        {{render "comm/top.html"}}
+
+        <div class="container-fluid product-content-0">
+            <div class="container">
+                <ul class="col-xs-12 col-md-9 col-lg-9 col-md-offset-1 col-lg-offset-1">{{ $name := .name }}
+                    {{range $index, $data := .nodeOptions}}
+                        <li class="col-xs-3 col-md-2 col-lg-2" id="menu-product-{{$name}}-{{$data}}">
+                            <a href="/product/{{$name}}/{{$data}}">{{$data}}</a>
+                        </li>
+                    {{end}}
+                </ul>
+            </div>
+        </div>
+
+        <div class="container-fluid product-content-1">
+            {{range $index, $data := .imgList}}
+                <img src="{{$data}}">
+            {{end}}
+        </div>
+        {{render  "comm/bottom.html"}}
+
+        <script type="text/javascript">
+            $(function () {
+                var uri = "-product-{{.name}}";
+                var nodeUri = "-product-{{.name}}-{{.nodeName}}";
+                $("#产品").attr("class", "dropdown active");
+
+                $("#" + uri).attr("class", "active");
+
+                if (nodeUri) {
+                    $("#menu" + nodeUri).attr("class", "col-xs-3 col-md-2 col-lg-2 active");
+                } else {
+                    $(".product-content-0 ul li").eq(0).attr("class", "col-xs-3 col-md-2 col-lg-2 active");
+                }
+            })
+        </script>
+
+    </body>
+</html>

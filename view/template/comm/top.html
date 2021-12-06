@@ -1,0 +1,88 @@
+<!-- 头部导航 -->
+{{$GetNavicat := GetNavicat}}
+{{$GetPhoneObj := GetPhoneObj}}
+
+{{$qq := GetJsonValue $GetPhoneObj "qq"}}
+{{$phone := GetJsonValue $GetPhoneObj "phone"}}
+
+<div class="container-fluid">
+    <div class="container index-header">
+        <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+            <div class="row hidden-xs">
+                <div class="col-md-5 col-lg-5">
+                    <img src="/static/own-picture/img0.png"  height="37px">
+                </div>
+                <div class="col-md-7 col-lg-7 index-header-1">
+                    <!-- <img src="/public/static/image/ico0.png" width="37px"> -->
+                    <a href="tencent://message/?uin={{$qq}}&Site=http://vps.shuidazhe.com&Menu=yes" el="nofollow">
+                        <img src="/static/own-picture/ico1.png"  width="37px">
+                    </a>
+                    <img src="/static/own-picture/ico2.png"  width="37px">
+                    电话：{{$phone}}
+                    </div>
+            </div>
+
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand hidden-xs hidden-sm hidden-md hidden-lg" href="#">导航</a>
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="/" class="dropdown">
+                            <a class="dropdown-toggle" href="/" data-toggle="dropdown">
+                                主页
+                            </a>
+                        </li>
+
+                        {{range $name, $v := $GetNavicat}}
+                        <li id="{{$name}}" class="dropdown">
+                            <a class="dropdown-toggle" href="{{$v.url}}"  data-toggle="dropdown">
+                                {{$name}}
+                            </a>
+                            <ul class="dropdown-menu">
+                                {{range $nodeName, $nodeV := $v.node}}
+                                <li id="{{DeleteLine $nodeV.url}}">
+                                    <a href="{{$nodeV.url}}" >
+                                        {{$nodeV.text}}
+                                    </a>
+                                </li>
+                                {{end}}
+                            </ul>
+                        </li>
+                        {{end}}
+                        <li id="concat" class="dropdown">
+                            <a class="dropdown-toggle" href="/concat" data-toggle="dropdown">
+                                联系我们
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- 轮播 -->
+<!-- 首页多张 详情页一张不滚动 -->
+<div class="container-fluid">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {{range $index, $data := .lunboList}}
+            <div class="swiper-slide">
+                <a href="{{$data.Url}}">
+                    <img src="{{$data.Img}}" >
+                </a>
+            </div>
+            {{end}}
+        </div>
+        <div class="swiper-pagination">
+
+        </div>
+    </div>
+</div>

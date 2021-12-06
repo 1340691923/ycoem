@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+{{render "comm/header.html"}}
+<body>
+
+	{{render "comm/top.html"}}
+
+	<div class="container-fluid firm-content-0">
+		<div class="container">
+			<ul class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				{{range $name, $data := .options}}
+					<li class="col-xs-3 col-md-2 col-lg-2" id="menu-firm-{{$data}}">
+						<a href="/firm/{{$data}}" >{{$data}}</a>
+					</li>
+				{{end}}
+			</ul>
+		</div>
+	</div>
+
+	<div class="container-fluid firm-content-1">
+		<div class="container">
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+
+				<ul class="row">
+					{{range $name, $data := .firm }}
+					<li>
+						<div class="col-xs-12 col-md-12 col-lg-12 firm-content-1-header">
+							<header><span>{{$data.Title}}</span></header>
+						</div>
+						<div class="col-xs-12 col-md-12 col-lg-12 firm-content-1-body">
+							<pre><span>{{$data.Content}}</span></pre>
+							{{range $imgK, $imgV :=  $data.Img}}<img src="{{$imgV}}" >{{end}}{{if $data.WxLink}}<a href="javascript:if(confirm('{{$data.WxLink}} \n\n是否要从服务器打开它?'))window.location='{{$data.WxLink}}'" target="view_window">点此查看详情</a>{{end}}
+						</div>
+					</li>
+					{{end}}
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div class="container-fluid firm-content-2">
+		<div class="container">
+			<div class="row firm-content-2-box col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<div class="row col-xs-12 col-md-12 col-lg-12 firm-content-2-header">
+					<header>Introduce</header>
+				</div>
+				<div class="row col-xs-12 col-md-12 col-lg-12 firm-content-2-content">
+					<pre>{{.introduce.Content}}</pre>
+					<ul>
+						{{range $name, $data := .introduce.List }}
+						<li>
+							{{$data}}
+						</li>
+						{{end}}
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		{{if .introduce.Img}}
+		<img src="{{.introduce.Img}}" >
+		{{end}}
+	</div>
+	<!-- 分页 -->
+	<div class="container-fluid firm-content-3">
+		<div class="container">
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+			</div>
+		</div>
+	</div>
+
+	{{render  "comm/bottom.html"}}
+
+	<script type="text/javascript">
+		$(function(){
+
+			//tag高亮
+			var title = "关于我们";
+			var uri = "-firm-{{.name}}";
+			if (title) {
+				$("#"+title).attr("class","dropdown active");
+			}
+
+
+			$("#"+uri).attr("class","active");
+			$("#menu"+uri).attr("class","col-xs-3 col-md-2 col-lg-2 active");
+
+			var text = $("#menu"+uri+" a").text();
+			if (text == "公司介绍") {
+				$(".firm-content-1").css("display","none");
+				$(".firm-content-2").css("display","block");
+			}else{
+				$(".firm-content-1").css("display","block");
+				$(".firm-content-2").css("display","none");
+			}
+
+
+			// 点击切换显示详情
+			var clicknum = -1;
+    		var allnum = 0;
+			$(".firm-content-1-header span").click(function(){
+				var num = $(this).parent().parent().index(".firm-content-1-header");
+				if (clicknum == num) {
+					var newnum = parseInt(allnum)+1 ;
+					allnum = newnum;
+					//如果 #allnum中的值可以整除2  说明是奇数次点击 不能整除 第偶数次点击 （不用清除#allnum的值）
+					var residue = newnum % 2;
+					if ( residue == 1) {
+						//不可以整除2 偶数次点击同一个位置 sort面板移除
+						$(".firm-content-1-body").css("display","none");
+
+					} else {
+						//可以整除2 奇数次点击这个位置 添加sort面板 图片旋转180度
+						$(this).parent().parent().siblings(".firm-content-1-body").css("display","block");
+					}
+				}else{
+					allnum=0;
+					clicknum=num;//将点击位置排序号赋值到input中
+					$(".firm-content-1-body").css("display","none");
+					$(this).parent().parent().siblings(".firm-content-1-body").css("display","block");
+				}
+			})
+		})
+	</script>
+
+</body>
+</html>

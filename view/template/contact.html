@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+{{render "comm/header.html"}}
+<body>
+	{{render "comm/top.html"}}
+	<div class="container-fluid contact-content-0">
+		<div class="container">
+			<div class="col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<img src="/static/own-picture/img3.png" >
+			</div>
+		</div>
+	</div>
+
+	{{ range $name, $data := .serviceDep }}
+		<div class='container-fluid contact-content-1'>
+			<div class='container'>
+				<div class='col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1'>
+					<div class='row col-xs-12 col-md-12 col-lg-12 contact-content-1-header'>{{$name}}</div>
+					<div class='row col-xs-12 col-md-12 col-lg-12'>
+						{{range $datak, $datav := $data}}
+							<div class='contact-content-body-0'>
+								<span>{{$datav.Area}}</span>
+								<span>大区经理：{{$datav.Manager}}</span>
+								<span>专项技术支持：{{$datav.Support}}</span>
+							</div>
+						{{end}}
+					</div>
+				</div>
+			</div>
+		</div>
+	{{end}}
+
+	<div class="container-fluid contact-content-3">
+		<div class="container">
+			{{if .logistice}}
+			<div class="col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<pre>物流信息：{{.logistice.Concat}}
+物流地址：{{.logistice.Area}}
+				</pre>
+			</div>{{end}}
+			{{if .branchOffice.Name}}
+			<div class="col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<pre><span style="color:#FF2122;font-size:1.6rem;">华南分公司：{{.branchOffice.Name}}</span>
+业务范围：{{.branchOffice.ServiceExtent}}
+公司地址：{{.branchOffice.Area}}
+联系电话：{{.branchOffice.Concat}}</pre>
+			</div>
+			{{end}}
+		</div>
+	</div>
+
+	{{render  "comm/bottom.html"}}
+	<script type="text/javascript">
+		$(function(){
+			$(".navbar-nav > .dropdown:last").attr("class","dropdown active");
+		});
+	</script>
+</body>
+</html>

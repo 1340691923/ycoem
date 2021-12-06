@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+{{render "comm/header.html"}}
+    <style>
+		.jPaginate{
+			height:34px;
+			position:relative;
+			color:#a5a5a5;
+			font-size:small;
+			width:100%;
+		}
+		.jPaginate a{
+			line-height:15px;
+			height:18px;
+			cursor:pointer;
+			padding:2px 5px;
+			margin:2px;
+			float:left;
+		}
+		.jPag-control-back{
+			position:absolute;
+			left:0px;
+		}
+		.jPag-control-front{
+			position:absolute;
+			top:0px;
+		}
+		.jPaginate span{
+			cursor:pointer;
+		}
+		ul.jPag-pages{
+			float:left;
+			list-style-type:none;
+			margin:0px 0px 0px 0px;
+			padding:0px;
+		}
+		ul.jPag-pages li{
+			display:inline;
+			float:left;
+			padding:0px;
+			margin:0px;
+		}
+		ul.jPag-pages li a{
+			float:left;
+			padding:2px 5px;
+		}
+		span.jPag-current{
+			cursor:default;
+			font-weight:normal;
+			line-height:15px;
+			height:18px;
+			padding:2px 5px;
+			margin:2px;
+			float:left;
+		}
+		ul.jPag-pages li span.jPag-previous,
+		ul.jPag-pages li span.jPag-next,
+		span.jPag-sprevious,
+		span.jPag-snext,
+		ul.jPag-pages li span.jPag-previous-img,
+		ul.jPag-pages li span.jPag-next-img,
+		span.jPag-sprevious-img,
+		span.jPag-snext-img{
+			height:22px;
+			margin:2px;
+			float:left;
+			line-height:18px;
+		}
+
+		ul.jPag-pages li span.jPag-previous,
+		ul.jPag-pages li span.jPag-previous-img{
+			margin:2px 0px 2px 2px;
+			font-size:12px;
+			font-weight:bold;
+			width:10px;
+
+		}
+		ul.jPag-pages li span.jPag-next,
+		ul.jPag-pages li span.jPag-next-img{
+			margin:2px 2px 2px 0px;
+			font-size:12px;
+			font-weight:bold;
+			width:10px;
+		}
+		span.jPag-sprevious,
+		span.jPag-sprevious-img{
+			margin:2px 0px 2px 2px;
+			font-size:18px;
+			width:15px;
+			text-align:right;
+		}
+		span.jPag-snext,
+		span.jPag-snext-img{
+			margin:2px 2px 2px 0px;
+			font-size:18px;
+			width:15px;
+			text-align:right;
+		}
+		ul.jPag-pages li span.jPag-previous-img{
+			background:transparent url(/static/own-picture/previous.png) no-repeat center right;
+		}
+		ul.jPag-pages li span.jPag-next-img{
+			background:transparent url(/static/own-picture/next.png) no-repeat center left;
+		}
+		span.jPag-sprevious-img{
+			background:transparent url(/static/own-picture/sprevious.png) no-repeat center right;
+		}
+		span.jPag-snext-img{
+			background:transparent url(/static/own-picture/snext.png) no-repeat center left;
+		}
+		.pages{
+        width:1400px;
+        padding:10px;
+        margin:10px auto;
+        border: 1px solid #fff;
+        background-color:#f7f7f7;
+    }
+    </style>
+<body>
+	{{render "comm/top.html"}}
+	<div class="container-fluid cases-content-0">
+		<div class="container">
+			<ul class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+                {{range $name, $data := .options}}
+				<li class="col-xs-3 col-md-2 col-lg-2" id="menu-cases-{{$data}}">
+                    <a href="/cases/{{$data}}" >{{$data}}</a>
+                </li>
+                {{end}}
+			</ul>
+		</div>
+	</div>
+
+	<div class="container-fluid cases-content-1">
+		<div class="container">
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+
+				{{range $index, $data := .list}}
+				<div class="col-xs-12 col-md-12 col-lg-12 cases-content-1-body">
+						<div class="col-xs-12 col-md-3 col-lg-3">
+							<img src="{{$data.Logo}}" >
+						</div>
+						<div class="col-xs-12 col-md-9 col-lg-9 cases-content-1-body-txt">
+							<header>{{NumberTransfer $index}}、{{$data.Title}}</header>
+							<span class="depict">
+								{{$data.Desc}}
+							</span>
+							<span>{{$data.Addr}}</span>
+						</div>
+					</div>
+				{{end}}
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 分页 -->
+	<div class="container-fluid cases-content-2">
+		<div class="container">
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<div class="pages" >
+					<div id="demo1"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{render  "comm/bottom.html"}}
+	<script type="text/javascript" src="/static/js/jquery.paginate.js" ></script>
+	<script type="text/javascript">
+
+		$(function(){
+			$("#demo1").paginate({
+				count 		: {{.count}},
+				start 		: {{.page}},
+				display     : 10,
+				border					: true,
+				border_color			: '#BEF8B8',
+				text_color  			: '#68BA64',
+				background_color    	: '#E3F2E1',
+				border_hover_color		: '#68BA64',
+				text_hover_color  		: 'black',
+				background_hover_color	: '#CAE6C6',
+				rotate      : false,
+				images		: false,
+				mouse		: 'press',
+				onChange     			: function(page){
+					window.location.href="/cases/{{.name}}?page="+page
+				}
+			});
+
+
+			var title = "案例";
+			var uri = "-cases-{{.name}}";
+
+			$("#"+title).attr("class","dropdown active");
+
+			if (uri) {
+				$("#"+uri).attr("class","active");
+				$("#menu"+uri).attr("class","col-xs-3 col-md-2 col-lg-2 active");
+			}
+		})
+	</script>
+
+</body>
+</html>

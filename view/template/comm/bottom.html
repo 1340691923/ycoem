@@ -1,0 +1,56 @@
+{{$webInfo := GetWebInfo}}
+{{$showContacts := GetContacts}}
+{{$wx_img := GetJsonValue $webInfo "wx_img"}}
+{{$app_img := GetJsonValue $webInfo "app_img"}}
+{{$copyright := GetJsonValue $webInfo "copyright"}}
+{{$icp := GetJsonValue $webInfo "icp"}}
+{{$record_no := GetJsonValue $webInfo "record_no"}}
+{{$record_info := GetJsonValue $webInfo "record_info"}}
+<!-- 返回顶部按钮 -->
+<div id="goTopBtn"><img src="/static/own-picture/img2.png"></div>
+<!-- 底部 -->
+<div class="container-fluid index-footer">
+    <div class="container">
+        <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+            <div class="col-xs-12 col-md-7 col-lg-7">
+                <ul class="row index-footer-0">
+                    {{range $index, $data := $showContacts.DeptInfos}}
+                    <li>{{$data}}</li>
+                    {{end}}
+                    {{if $showContacts.Address}}<li>地址：{{$showContacts.Address}}</li>{{end}}
+                </ul>
+            </div>
+
+            <div class="col-xs-12 col-md-5 col-lg-5">
+                <ul class="row index-footer-1">
+                    {{if $wx_img }}
+                    <li>
+                        <img src="{{$wx_img}}">
+                        <span>关注我们</span>
+                    </li>
+                    {{end}}
+                    {{if $app_img}}
+                        <li>
+                            <img src="{{$app_img}}">
+                            <span>下载APP</span>
+                        </li>
+                    {{end}}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr class="hr">
+    {{if $copyright}}
+    <div class="container">
+        <div class="col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 index-footer-2">
+            <pre><span>版权所有：{{$copyright}}<a target="_blank" href="javascript:if(confirm('https://beian.miit.gov.cn/ \n\n是否要从服务器打开它?'))window.location='https://beian.miit.gov.cn/'" >{{$icp}}</a><a target="_blank" href="javascript:if(confirm('http://www.beian.gov.cn/portal/registerSystemInfo?recordcode={{$record_no}}  \n\n是否要从服务器打开它?'))window.location='http://www.beian.gov.cn/portal/registerSystemInfo?recordcode={{$record_no}}'"  style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="/static/own-picture/police.png"  style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">{{$record_info}}</p></a></span></pre>
+        </div>
+    </div>
+    {{end}}
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" ></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
+<script type="text/javascript" src="/static/js/main.js" ></script>
+
