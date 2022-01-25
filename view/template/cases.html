@@ -116,6 +116,12 @@
         background-color:#f7f7f7;
     }
     </style>
+
+<script type="text/javascript" >
+	let parmas = {"appid":"389264577977647113","appkey":"3bacf371fea7c96309d8778042555248"}
+	var thinkData = new ThinkData("http://www.ycvod.net/report", parmas["appid"], parmas["appkey"], 0)
+	thinkData.track("访问案例",{url_path:decodeURI(window.location.pathname)})
+</script>
 <body>
 	{{render "comm/top.html"}}
 	<div class="container-fluid cases-content-0">

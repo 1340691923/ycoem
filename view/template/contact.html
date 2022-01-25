@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 {{render "comm/header.html"}}
+<script type="text/javascript" >
+	let parmas = {"appid":"389264577977647113","appkey":"3bacf371fea7c96309d8778042555248"}
+	var thinkData = new ThinkData("http://www.ycvod.net/report", parmas["appid"], parmas["appkey"], 0)
+	thinkData.track("访问联系我们",{url_path:decodeURI(window.location.pathname)})
+</script>
 <body>
 	{{render "comm/top.html"}}
 	<div class="container-fluid contact-content-0">
@@ -20,8 +25,8 @@
 						{{range $datak, $datav := $data}}
 							<div class='contact-content-body-0'>
 								<span>{{$datav.Area}}</span>
-								<span>大区经理：{{$datav.Manager}}</span>
-								<span>专项技术支持：{{$datav.Support}}</span>
+								<a onclick="linkWe({{$datav.Manager}})"><span>大区经理：{{$datav.Manager}}</span></a>
+								<a onclick="linkWe({{$datav.Support}})"><span>专项技术支持：{{$datav.Support}}</span></a>
 							</div>
 						{{end}}
 					</div>
@@ -34,9 +39,11 @@
 		<div class="container">
 			{{if .logistice}}
 			<div class="col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-				<pre>物流信息：{{.logistice.Concat}}
+				<a onclick="linkWe({{.logistice.Concat}})">
+					<pre>物流信息：{{.logistice.Concat}}
 物流地址：{{.logistice.Area}}
 				</pre>
+				</a>
 			</div>{{end}}
 			{{if .branchOffice.Name}}
 			<div class="col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">

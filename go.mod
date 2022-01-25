@@ -31,6 +31,7 @@ require (
 	github.com/jonboulle/clockwork v0.2.0 // indirect
 	github.com/json-iterator/go v1.1.11
 	github.com/jsyzchen/pan v0.0.9 // indirect
+	github.com/jteeuwen/go-bindata v3.0.7+incompatible // indirect
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
 	github.com/kataras/golog v0.0.18 // indirect
 	github.com/kataras/iris v11.1.1+incompatible

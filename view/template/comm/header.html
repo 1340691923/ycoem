@@ -14,7 +14,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link rel="icon" href="/static/own-picture/favicon.ico"  type="/static/own-picture/x-icon" />
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" >
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" >
+    <link rel="stylesheet" type="text/css" href="/static/css/swiper-min.css" >
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" >
+    <script type="text/javascript" src="/static/js/sdk3.js" ></script>
+    <script>
+        function handlerStr(str) {
+            let newStr = null;//返回值
+            const phoneReg = /(1[0-9]{10})|([0-9]{3,4})?[0-9]{7,8}/g;//匹配手机号或者固话
+            const num = str.replace(/\s|[(]|[)]|[（]|[）]|[-]*/g, '');//去除字符串中所有空格、小括号和横杠
+            const phone = num.match(phoneReg);//识别手机号或者固话（在字符串内检索指定的值，或找到一个或多个正则表达式的匹配）
+            phone && (newStr = phone.join(' '));//有值的话得到一个数组，用空格隔开转化为字符串
+            return newStr;
+        }
+        function linkWe(str) {
+            let phone = handlerStr(str)
+            thinkData.track("拨打电话",{url_path:decodeURI(window.location.pathname)})
+            window.open('tel:'+phone, '_blank')
+        }
+    </script>
 
 </head>
