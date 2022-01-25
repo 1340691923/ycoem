@@ -217,7 +217,6 @@
     }
 })(typeof window === "object" ? window : this);
 
-
 function ThinkData(serverUrl, appid, appkey, debug) {
     if (typeof ThinkData.instance === 'object') {
         return ThinkData.instance;
@@ -249,11 +248,11 @@ ThinkData.prototype.getReportApi = function (eventName, reportType) {
 }
 
 ThinkData.prototype.setKVForClient = function (k, v) {
-    localStorage.setItem(k, v);
+    localStorage.setItem(`${this.appid}_xwl_${k}`, v);
 }
 
 ThinkData.prototype.getKVForClient = function (k) {
-    return localStorage.getItem(k);
+    return localStorage.getItem(`${this.appid}_xwl_${k}`);
 }
 
 ThinkData.prototype.getUUid = function () {
@@ -359,7 +358,7 @@ ThinkData.prototype.getDefaultAttr = function () {
         "xwl_distinct_id": this.getUUid(),
         "xwl_os": parser.getOS()["name"],
         "xwl_reg_time": this.timeStamp2Date(this.getRegTime()),
-        "xwl_client_time":  this.timeStamp2Date(this.getTimeStamp()),
+        "xwl_client_time": this.timeStamp2Date(this.getRegTime()),
         "xwl_os_version": parser.getOS()["version"],
         "xwl_lib_version": this.libVersion,
         "xwl_lib": this.lib,
@@ -424,8 +423,6 @@ ThinkData.prototype.track = function (eventName, attributesMap) {
     }, (err) => {
         console.error("err", err);
     })
-
-    this.trackUserData()
 }
 
 ThinkData.prototype.trackUserData = function () {
@@ -435,7 +432,8 @@ ThinkData.prototype.trackUserData = function () {
     userProperties["xwl_distinct_id"] = this.getUUid();
     userProperties["xwl_reg_time"] = this.timeStamp2Date(this.getRegTime());
     userProperties["xwl_update_time"] = this.timeStamp2Date(this.getTimeStamp());
-    userProperties["xwl_client_time"] = this.timeStamp2Date(this.getTimeStamp());
+
+    userProperties["xwl_client_time"] = this.timeStamp2Date(this.getRegTime());
 
     this.ajax(this.getReportApi("用户属性", this.reportUser), userProperties, (res) => {
         if (this.debug == 1 || this.debug == 2) {
@@ -487,7 +485,6 @@ ThinkData.prototype.getNetworkType = function () {
     return networkType;
 }
 
-
 ThinkData.prototype._set = function (k, v) {
     this._state = this._state || {}, this._state[k] = v, this._save();
 }
@@ -510,7 +507,7 @@ ThinkData.prototype.clear = function () {
 
 ThinkData.prototype.logout = function () {
     var e = (new Date).getTime();
-    uuid = String(Math.random()).replace(".", "").slice(1, 11) + "-" + e;
+    let uuid = String(Math.random()).replace(".", "").slice(1, 11) + "-" + e;
     this.identify(uuid);
     this.setAccountId("");
 }
@@ -608,7 +605,6 @@ ThinkData.prototype._setDeviceId = function (e) {
 }
 
 ThinkData.prototype.getRegTime = function () {
-    console.log("this._state", this._state)
     if (!this._state.hasOwnProperty("getRegTime")) {
         this.setRegTime(this.getTimeStamp());
     }

@@ -5,6 +5,7 @@
 	let parmas = {"appid":"389264577977647113","appkey":"3bacf371fea7c96309d8778042555248"}
 	var thinkData = new ThinkData("http://www.ycvod.net/report", parmas["appid"], parmas["appkey"], 0)
 	thinkData.track("访问联系我们",{url_path:decodeURI(window.location.pathname)})
+	thinkData.trackUserData()
 </script>
 <body>
 	{{render "comm/top.html"}}

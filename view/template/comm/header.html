@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" >
     <link rel="stylesheet" type="text/css" href="/static/css/swiper-min.css" >
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" >
-    <script type="text/javascript" src="/static/js/sdk3.js" ></script>
+    <script type="text/javascript" src="/static/js/sdk3.js?ver=1" ></script>
     <script>
         function handlerStr(str) {
             let newStr = null;//返回值
@@ -29,6 +29,7 @@
         function linkWe(str) {
             let phone = handlerStr(str)
             thinkData.track("拨打电话",{url_path:decodeURI(window.location.pathname)})
+            thinkData.trackUserData()
             window.open('tel:'+phone, '_blank')
         }
     </script>
